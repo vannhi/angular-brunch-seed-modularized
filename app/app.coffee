@@ -3,7 +3,7 @@
 
 # Declare app level module which depends on filters, and services
 App = angular.module('app', [
-  'ui.state'
+  'ngRoute'
   'ngCookies'
   'ngResource'
   'app.controllers'
@@ -17,34 +17,13 @@ App = angular.module('app', [
 ])
 
 App.config([
-  '$stateProvider'
-  '$urlRouterProvider'
+  '$routeProvider'
 
-  ($stateProvider, $urlRouterProvider) ->
-
-    # default to the todo page
-    $urlRouterProvider.otherwise("/todo")
-    
-    $stateProvider
-
-      .state('todo', 
-          url: "/todo"
-          views:
-            "main-content": 
-              templateUrl: "app/sections/home/partials/todo.jade"
-      )
-
-      .state('view1', 
-          url: "/view1"
-          views:
-            "main-content": 
-              templateUrl: "app/sections/view1/partials/partial1.jade"
-      )
-
-      .state('view2', 
-          url: "/view2"
-          views:
-            "main-content": 
-              templateUrl: "app/sections/view2/partials/partial2.jade"
-      )
+  ($routeProvider) ->
+    $routeProvider
+      .when('/todo', {templateUrl: 'app/sections/home/partials/todo.jade'})
+      .when('/view1', {templateUrl: 'app/sections/view1/partials/partial1.jade'})
+      .when('/view2', {templateUrl: 'app/sections/view2/partials/partial2.jade'})
+      # Catch all
+      .otherwise({redirectTo: '/todo'})
 ])

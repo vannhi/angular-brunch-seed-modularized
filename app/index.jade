@@ -22,7 +22,7 @@ html(lang='en', ng-app='app')
           .navbar-collapse.collapse
             div(ng-include="'app/sections/navbar/partials/nav.jade'")
       .container.main-content
-        div(ui-view="main-content")
+        div(ng-view)
         div Angular Brunch seed app: v<span app-version></span>
       .push
 
