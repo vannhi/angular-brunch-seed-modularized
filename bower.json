@@ -10,7 +10,6 @@
   ],
   "dependencies": {
     "console-polyfill": "~0.2.0",
-    "angular-bootstrap": "~0.4.0",
     "angular": "~1.4.7",
     "angular-sanitize": "~1.4.7",
     "angular-resource": "~1.4.7",
