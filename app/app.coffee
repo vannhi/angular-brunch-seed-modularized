@@ -3,21 +3,16 @@
 
 # Declare app level module which depends on filters, and services
 App = angular.module('app', [
-  #used for angular-ui-router
   'ui.state'
-  
   'ngCookies'
   'ngResource'
   'app.controllers'
   'app.directives'
   'app.filters'
   'app.services'
-  'navbar.partials'
-  'todo.partials'
+  'app.templates'
   'app.todo.controllers'
-  'view1.partials'
   'app.view1.controllers'
-  'view2.partials'
   'app.view2.controllers'
 ])
 
@@ -36,20 +31,20 @@ App.config([
           url: "/todo"
           views:
             "main-content": 
-              templateUrl: "/todo/todo.html"
+              templateUrl: "app/sections/home/partials/todo.jade"
       )
 
       .state('view1', 
           url: "/view1"
           views:
             "main-content": 
-              templateUrl: "/view1/partial1.html"
+              templateUrl: "app/sections/view1/partials/partial1.jade"
       )
 
       .state('view2', 
           url: "/view2"
           views:
             "main-content": 
-              templateUrl: "/view2/partial2.html"
+              templateUrl: "app/sections/view2/partials/partial2.jade"
       )
 ])
