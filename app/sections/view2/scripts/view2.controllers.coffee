@@ -4,6 +4,5 @@ angular.module('app.view2.controllers', [])
   '$scope'
 
 ($scope) ->
-  $scope.twoPlusTwo = 4
 ])
 

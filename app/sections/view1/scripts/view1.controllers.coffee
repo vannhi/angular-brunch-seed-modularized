@@ -6,5 +6,4 @@ angular.module('app.view1.controllers', [])
   '$scope'
 
 ($scope) ->
-  $scope.onePlusOne = 2
 ])
