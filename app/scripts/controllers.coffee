@@ -1,7 +1,5 @@
 'use strict'
 
-### Controllers ###
-
 angular.module('app.controllers', [])
 
 .controller('AppCtrl', [
@@ -26,8 +24,5 @@ angular.module('app.controllers', [])
   #   getClass('/orders') # returns ''
   #
   $scope.getClass = (id) ->
-    if $scope.activeNavId.substring(0, id.length) == id
-      return 'active'
-    else
-      return ''
+    return active: $scope.activeNavId.substring(0, id.length) == id
 ])
