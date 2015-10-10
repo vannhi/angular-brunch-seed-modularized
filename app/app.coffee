@@ -19,7 +19,7 @@ App.config([
 
   ($routeProvider) ->
     $routeProvider
-      .when('/todo', {templateUrl: 'app/sections/home/partials/todo.jade'})
+      .when('/todo', {templateUrl: 'app/sections/todo/partials/todo.jade'})
       .when('/view1', {templateUrl: 'app/sections/view1/partials/partial1.jade'})
       .when('/view2', {templateUrl: 'app/sections/view2/partials/partial2.jade'})
       # Catch all
