@@ -21,17 +21,11 @@ angular.module('app.todo.controllers', [])
     $scope.todoText = ""
 
   $scope.remaining = ->
-    count = 0
-    angular.forEach $scope.todos, (todo) ->
-      count += (if todo.done then 0 else 1)
-
-    count
+    $scope.todos.filter (todo) -> not todo.done
+      .length
 
   $scope.archive = ->
     oldTodos = $scope.todos
-    $scope.todos = []
-    angular.forEach oldTodos, (todo) ->
-      $scope.todos.push todo  unless todo.done
-
+    $scope.todos = $scope.todos.filter (todo) -> not todo.done
 ])
 
