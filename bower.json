@@ -17,11 +17,6 @@
     "angular-route": "~1.4.7"
   },
   "overrides": {
-    "bootstrap-less": {
-      "ignore": [
-        "*"
-      ]
-    },
     "angular-mocks": {
       "main": "README.md"
     }
