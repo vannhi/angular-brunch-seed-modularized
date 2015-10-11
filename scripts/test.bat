@@ -1,1 +1,1 @@
-node_modules/.bin/karma start test/karma.conf.coffee
+node_modules/.bin/karma start karma.conf.coffee

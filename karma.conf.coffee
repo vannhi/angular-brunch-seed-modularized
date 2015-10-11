@@ -5,7 +5,7 @@ module.exports = (config) ->
   config.set
 
     # base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '..'
+    basePath: ''
 
 
     # frameworks to use
@@ -24,7 +24,7 @@ module.exports = (config) ->
         'bower_components/angular-mocks/angular-mocks.js'
 
         # Specs
-        'test/unit/**/*.spec.*'
+        'app/**/*.spec.*'
     ]
 
 
