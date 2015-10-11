@@ -23,34 +23,33 @@ describe "my app", ->
     addToDoItem = ->
       input("todoText").enter NEW_ITEM_LABEL
       element("input[type=\"submit\"]").click()
-      expect(repeater("[ui-view] ul li").count()).toEqual 3
-      expect(element("[ui-view] ul li:last span").text()).toEqual NEW_ITEM_LABEL
+      expect(repeater("[ng-view] ul li").count()).toEqual 3
+      expect(element("[ng-view] ul li:last span").text()).toEqual NEW_ITEM_LABEL
       expect(input("todoText").val()).toEqual ""
 
     it "should list 2 items", ->
-      expect(repeater("[ui-view] ul li").count()).toEqual 2
+      expect(repeater("[ng-view] ul li").count()).toEqual 2
 
     it "should display checked items with a line-through", ->
-      expect(element("[ui-view] ul li input:checked + span").css("text-decoration")).toEqual "line-through"
+      expect(element("[ng-view] ul li input:checked + span").css("text-decoration")).toEqual "line-through"
 
     it "should sync done status with checkbox state", ->
-      element("[ui-view] ul li input:not(:checked)").click()
-      expect(element("[ui-view] ul li span").attr("class")).toEqual "donetrue"
-      element("[ui-view] ul li input:checked").click()
-      expect(element("[ui-view] ul li span").attr("class")).toEqual "donefalse"
+      element("[ng-view] ul li input:not(:checked)").click()
+      expect(element("[ng-view] ul li span").attr("class")).toEqual "donetrue"
+      element("[ng-view] ul li input:checked").click()
+      expect(element("[ng-view] ul li span").attr("class")).toEqual "donefalse"
 
     it "should remove checked items when the archive link is clicked", ->
-      element("[ui-view] a[ng-click=\"archive()\"]").click()
-      expect(repeater("[ui-view] ul li").count()).toEqual 1
+      element("[ng-view] a[ng-click=\"archive()\"]").click()
+      expect(repeater("[ng-view] ul li").count()).toEqual 1
 
     it "should add a newly submitted item to the end of the list and empty the text input", addToDoItem
 
-    it "should still have a newly submitted item after switching views", ->
+    it "should reset after switching views", ->
       addToDoItem
       switchToView1
       switchToToDo
-      expect(repeater("[ui-view] ul li").count()).toEqual 3
-      expect(element("[ui-view] ul li:last span").text()).toEqual NEW_ITEM_LABEL
+      expect(repeater("[ng-view] ul li").count()).toEqual 2
 
 
   it "should navigate to /view1 when the View 1 link in nav is clicked", ->
