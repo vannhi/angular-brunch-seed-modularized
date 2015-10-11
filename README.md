@@ -1,20 +1,15 @@
-# angular-brunch-seed
+# angular-brunch-seed-modularized
 ### A starter project for AngularJS using Brunch.io
 
 [AngularJS](http://angularjs.org) + [Brunch](http://brunch.io)
-
-#### ** MAJOR UPDATES **
-v0.4.1 Brings with it some major changes. If you're upgrading from a previous release, 
-please run `./scripts/init.sh` and remove any bower components from `vendor`. Bower
-now uses the `bower_components` directory.
 
 Features:
 * Coffeescript / Jade / Less / Stylus automatically compiled on save
 * auto-reload during development saves you from manually refreshing the page
 * Javascript / CSS minification for production
-* [karma](https://github.com/karma-runner/karma) integration for
+* [karma](http://karma-runner.github.io) integration for
   unit tests
-* Bootstrap integration with themes.
+* Bootstrap integration.
 * Source map support
 * Modularized code, see /app/sections
 * angular/ui-router for more flexible routing
@@ -33,8 +28,7 @@ Differences
 * Instead of one controller, one partials folder, one module, there are several
   * top level ones under /app 
   * lower-level ones under /app/sections 
-    * (to make that work, karma.conf.js and config.coffee had to be changed, to pick up and integrate the files from more locations)
-* Instead of using the $routeProvider, it uses angular-ui-router to allow output to multiple named views, nested views, etc. Routing and ng-view was mentioned by many online as pain points for larger apps. This arrangement should be much better.
+    * (to make that work, karma.conf.coffee and config.coffee had to be changed, to pick up and integrate the files from more locations)
 
 ## Alternate Versions
 
@@ -51,16 +45,16 @@ Differences
   by [@sanfordredlich](https://github.com/sanfordredlich) - Demonstrates a modular
   design, consistent with best practices and better suited for larger projects
 
-## How to use angular-brunch-seed
+## How to use angular-brunch-seed-modularized
 
-* `git clone https://github.com/scotch/angular-brunch-seed.git` to clone 
-  the **angular-brunch-seed** repository
-* `cd angular-brunch-seed`
+* `git clone https://github.com/vannhi/angular-brunch-seed-modularized.git` to clone 
+  the **angular-brunch-seed-modularized** repository
+* `cd angular-brunch-seed-modularized`
 * `./scripts/init.sh` to install node packages
 
 Or if you have **Brunch** installed run:
 
-`brunch new https://github.com/scotch/angular-brunch-seed myapp`
+`brunch n gh:vannhi/angular-brunch-seed-modularized myapp`
 
 You must also install packages using bower. Either
 
@@ -80,35 +74,17 @@ downloading then it's still working.
 
 ### Using Jade
 
-You will find the jade files in the `app` and `app/partials` directories.
-Upon save the Jade files will be recompiled to HTML and added to the
-`$templateCache`. When reverencing a partial use the path should begin with
-`partial/` and end with `.html`. For example the `app/partials/nav.jade` would
-be referenced in the Angular javascript code as 'partials/nav.html'.
-
 *NOTE:* Behind the scenes Angular-brunch-seed uses 
 [jade-angular-brunch](https://github.com/GulinSS/jade-angularjs-brunch)
 to compile and serve partials.
 [jade-angular-brunch](https://github.com/GulinSS/jade-angularjs-brunch)
-works by creating an Angular module named`'partials'` that adds the HTML
+works by creating an Angular module named`'app.templates'` that adds the HTML
 string of the partials to the `$templateCache`. For this to work you must add
-`partials` to yours apps required modules list and include the `partials.js`
+`app.templates` to yours apps required modules list and include the `app.templates.js`
 file in your `index.html` file.
 
 If you are interested in the compiled HTML view the contents 
-of the `_public/js/partials.js` file.
-
-### Using html
-
-By default angular-brunch-seed uses jade templates. If you would prefer to use
-HTML run the command:
-
-```
-./scripts/compile-html.sh
-```
-All Jade file will be compiled to HTML and be placed in the `app/assets` directory.
-Additionally, the `*.jade` files will be removed from the project. Any changes
-that you make to the `app/assets/**/*.html` files will now appear in the browser.
+of the `_public/js/app.templates.js` file.
 
 ### Running the app during development
 
@@ -137,20 +113,20 @@ and run `bower install`. The component will be added to the `vendor` directory.
 
 ### Running unit tests
 
-* `./scripts/test.sh` to run unit tests with [karma](https://github.com/karma-runner/karma)
+* `./scripts/test.sh` to run unit tests with [karma](http://karma-runner.github.io)
 
 Notes:
 
 - Karma will run tests on save. To insure that changes are saved be sure
   to have `./script/server.sh` or `./script/development.sh` running in the console.
-- Set the browsers that you would like to target in the `/test/karma.conf.js` file
+- Set the browsers that you would like to target in the `karma.conf.coffee` file
   E.g. `browser = ["ChromeCanary", "Firefox"]`
 
 ### End to end testing
 
 * run the app in development mode as described above using a separate terminal
 * `./scripts/test-e2e.sh` to run e2e tests with
-  [karma](https://github.com/karma-runner/karma) using Angular's scenario runner
+  [karma](http://karma-runner.github.io) using Angular's scenario runner
 
 ### Common issues
 
@@ -164,89 +140,3 @@ Initial load does not render correctly; scripts are not loading.
   setting max opened file count to bigger number with command `ulimit -n 10000`.
 
 The complete [Brunch FAQ](https://github.com/brunch/brunch/blob/master/docs/faq.rst)
-
-### Receiving updates from upstream
-
-When we upgrade Angular-brunch-seed's repo with newer angular or testing library code,
-you can just fetch the changes and merge them into your project with git.
-
-```bash
-git pull origin master
-```
-
-## Directory Layout
-
-    _public/                  --> Contains generated file for servering the app
-                                  These files should not be edited directly
-    app/                      --> all of the files to be used in production
-
-      assets                  --> a place for static assets. These files will be copied to
-                                  the public directory un-modified.
-        img/                  --> image files
-        partials/             --> angular view partials (partial HTML templates)
-          nav.html                If you are using HTML you may modify these files directly.
-          partial1.html           If you are using Jade these file will be update from their *.jade counterpart
-          partial2.html
-        index.html            --> app layout file (the main html template file of the app).
-
-      partials/               --> Jade partial files. This file will be converted to HTML upon save.
-        nav.jade                  If you are using HTML this directory will not be present. You will find the template file
-        partial1.jade             in the `app/assets/partials` directory instead.
-        partial2.jade             If you are using Jade these file will be converted to HTML and compiled into 
-                                  `_public/js/partials.js` upon save.
-      scripts/                --> base directory for app scripts
-        controllers.js        --> application controllers
-        directives.js         --> custom angular directives
-        filters.js            --> custom angular filters
-        services.js           --> custom angular services
-
-      styles/                 --> all custom styles. Acceptable files types inculde:
-                                  less, and stylus
-        _override.less        --> styles that should be loaded after bootstrap.
-        _variables.less       --> bootstrap variables to be used during the compilation process
-                              --> **NOTE the underscore (_). Files begining with an underscore 
-                                  will not automatically be compiled, they must be imported.
-        app.less              --> a file for importing styles.
-      app.coffee              --> application definition and routes.
-      index.jade              --> Index file. This will be converted to assets/index.html on save
-      init.coffee             --> application bootstrap
-
-    bower_components/         --> The bower_components dirctory is populated by Bower.
-                                  It contains  Angular, Bootstrap Font-Awesome 
-                                  and other utility files.
-    node_modules              --> NodeJS modules
-
-    scripts/                  --> handy shell scripts
-      compile-html.sh         --> compiles *.jade file to *.html file and places them in app/assets
-      compile-tests.sh        --> compiles coffeescript test to javascript
-      development.sh          --> compiles files and watches for changes
-      init.sh                 --> installs node modules
-      production.sh           --> compiles and compresses files for production use
-      server.sh               --> runs a development server at `http://localhost:3333`
-      test.sh                 --> runs all unit tests
-      test-e2e.sh             --> runs all end-to-end tests using Testacular
-
-    test/                     --> test source files and libraries
-      app/
-        scenarios.coffee      --> end-to-end specs
-      unit/
-        controllers.spec.js   --> specs for controllers
-        directives.spec.js    --> specs for directives
-        filters.spec.js       --> specs for filters
-        services.spec.js      --> specs for services
-      vendor/
-        test-results.xml      --> Karma test resuls
-        karma-e2e.conf.js     --> Karma end-to-end tests config
-        karma.conf.js         --> Karma unit tests config
-
-    vendor/                   --> The vendor directory is can be used for 3rd Party libraries.
-                                  Any files located in this directory will be included in js/vendor.js
-  bower.json                  --> Bower component config
-  config.coffee               --> Brunch config
-  package.json                --> node modules config
-
-## Contributers
-
-[Complete list of code contributers](https://github.com/scotch/angular-brunch-seed/graphs/contributors)
-
-For more information on angular please check out <http://angularjs.org>
