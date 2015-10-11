@@ -2,8 +2,6 @@
 
 expect = chai.expect
 
-# jasmine specs for services go here
-
 describe "service", ->
 
   beforeEach(module "app.services")
