@@ -1,5 +1,7 @@
 'use strict'
 
+expect = chai.expect
+
 # jasmine specs for services go here
 
 describe "service", ->
@@ -8,5 +10,5 @@ describe "service", ->
 
   describe "version", ->
     it "should return current version", inject((version) ->
-      expect(version).toEqual "0.1"
+      expect(version).to.equal "0.1"
     )

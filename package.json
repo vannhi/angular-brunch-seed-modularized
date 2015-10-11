@@ -28,5 +28,13 @@
     "less-brunch": "^1.8.1",
     "stylus-brunch": "^1.8.1",
     "uglify-js-brunch": ">= 1.0 < 1.8"
+  },
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.3.3",
+    "phantomjs": "^1.9.18"
   }
 }

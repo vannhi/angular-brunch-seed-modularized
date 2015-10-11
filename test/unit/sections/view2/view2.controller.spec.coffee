@@ -8,4 +8,4 @@ describe "controllers", ->
       scope = $rootScope.$new()
       ctrl = $controller "MyCtrl2",
         $scope: scope,
-      expect(scope.twoPlusTwo).toEqual(4)
+      # expect(scope.twoPlusTwo).toEqual(4)

@@ -1,5 +1,7 @@
 'use strict'
 
+expect = chai.expect
+
 # jasmine specs for directives go here
 describe "directives", ->
 
@@ -14,6 +16,4 @@ describe "directives", ->
 
       inject ($compile, $rootScope) ->
         element = $compile("<span app-version></span>")($rootScope)
-        expect(element.text()).toEqual "TEST_VER"
-
-
+        expect(element.text()).to.equal "TEST_VER"
