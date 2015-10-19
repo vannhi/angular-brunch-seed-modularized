@@ -25,13 +25,35 @@ or
 
 ## Some MAJOR changes from original angular-brunch-seed-modularized
 
-### Designed to work with Node 4.x and npm 3
-
-npm-shrinkwrap.json: Force auto-reload-brunch to use ws@0.8.0 because older version does not work with Node 4.x. This npm-shrinkwrap.json only works with npm 3.
-
 ### Unit test scripts location
 
 Test scripts are found besides productions. I think it is better for writing tests. Test scripts are prefix by _ to be ignored by brunch (See brunch ignored convention)
+
+### End-to-end test
+
+End-to-end tests now use [Protractor](http://angular.github.io/protractor/#/) instead of karma & ng-scenario. You need to install protractor globally:
+
+```
+npm install -g protractor
+```
+
+download the necessary binaries with
+
+```
+webdriver-manager update
+```
+
+To run end-to-end test, start server (ex: scripts/server.sh), run a standalone selenium server:
+
+```
+webdriver-manager start
+```
+
+and finally run e2e tests:
+
+```
+scripts/test-e2e.sh
+```
 
 ### Newer jade-angularjs-brunch version
 
