@@ -1,1 +1,1 @@
-protractor test/protractor.conf.coffee
+node_modules\.bin\protractor test/protractor.conf.coffee

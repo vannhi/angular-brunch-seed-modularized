@@ -31,25 +31,13 @@ Test scripts are found besides productions. I think it is better for writing tes
 
 ### End-to-end test
 
-End-to-end tests now use [Protractor](http://angular.github.io/protractor/#/) instead of karma & ng-scenario. You need to install protractor globally:
+End-to-end tests now use [Protractor](http://angular.github.io/protractor/#/) instead of karma & ng-scenario. You need to download the necessary binaries with:
 
 ```
-npm install -g protractor
+node_modules/.bin/webdriver-manager update
 ```
 
-download the necessary binaries with
-
-```
-webdriver-manager update
-```
-
-To run end-to-end test, start server (ex: scripts/server.sh), run a standalone selenium server:
-
-```
-webdriver-manager start
-```
-
-and finally run e2e tests:
+To run end-to-end test, start server (ex: scripts/server.sh) and run e2e tests:
 
 ```
 scripts/test-e2e.sh

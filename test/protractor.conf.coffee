@@ -1,6 +1,6 @@
 exports.config =
   framework: 'mocha'
-  seleniumAddress: 'http://localhost:4444/wd/hub'
+  baseUrl: 'http://localhost:3333'
   capabilities:
     browserName: 'chrome'
     # browserName: 'phantomjs'
