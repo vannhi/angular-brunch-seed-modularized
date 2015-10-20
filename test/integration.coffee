@@ -1,7 +1,6 @@
 chai = require "chai"
 expect = chai.expect
 chai.use require "chai-as-promised"
-baseUrl = "http://localhost:3333"
 
 class TodoPage
   constructor: ->
@@ -9,7 +8,7 @@ class TodoPage
     @archiveButton = $("[ng-view] a[ng-click=\"archive()\"]")
     @newTodoText = element By.model('todoText')
   get: ->
-    browser.get baseUrl
+    browser.get("")
 
 describe "my app", ->
   todoPage = null
@@ -21,14 +20,14 @@ describe "my app", ->
 
   switchToToDo = ->
     $(".nav a[href=\"#/todo\"]").click()
-    expect(browser.getCurrentUrl()).to.eventually.equal "#{baseUrl}/#/todo"
+    expect(browser.getCurrentUrl()).to.eventually.equal "#{browser.baseUrl}/#/todo"
 
   switchToView1 = ->
     element(By.css(".nav a[href=\"#/view1\"]")).click()
-    expect(browser.getCurrentUrl()).to.eventually.equal "#{baseUrl}/#/view1"
+    expect(browser.getCurrentUrl()).to.eventually.equal "#{browser.baseUrl}/#/view1"
 
   it "should automatically redirect to /todo when location hash/fragment is empty", ->
-    expect(browser.getCurrentUrl()).to.eventually.equal "#{baseUrl}/#/todo"
+    expect(browser.getCurrentUrl()).to.eventually.equal "#{browser.baseUrl}/#/todo"
 
   describe "todo", ->
 
@@ -73,14 +72,14 @@ describe "my app", ->
 
   describe "view1", ->
     beforeEach ->
-      browser.get "#{baseUrl}#/view1"
+      browser.get "#/view1"
 
     it "should render view1 when user navigates to /view1", ->
       expect($$("p").first().getText()).to.eventually.match /partial for view 1/
 
   describe "view2", ->
     beforeEach ->
-      browser.get "#{baseUrl}#/view2"
+      browser.get "#/view2"
 
     it "should render view2 when user navigates to /view2", ->
       expect($$("p").first().getText()).to.eventually.match /partial for view 2/
