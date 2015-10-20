@@ -4,9 +4,19 @@ chai.use require "chai-as-promised"
 
 class TodoPage
   constructor: ->
-    @todoItems = element.all By.repeater('todo in todos')
-    @archiveButton = $("[ng-view] a[ng-click=\"archive()\"]")
+    @allTodos = element.all By.repeater('todo in todos')
+    @doneTodos = @allTodos.filter (elem)->
+      elem.$("input").isSelected()
+    @notDoneTodos = @allTodos.filter (elem)->
+      elem.$("input").isSelected().then (x)-> not x
+
+    @archiveButton = $("[ng-view] a[ng-click='archive()']")
     @newTodoText = element By.model('todoText')
+    @navTodoButton = $(".nav a[href='#/todo']")
+    @navView1Button = $(".nav a[href='#/view1']")
+    @navView2Button = $(".nav a[href='#/view2']")
+    @addTodoButton = $("input[type='submit']")
+
   get: ->
     browser.get("")
 
@@ -19,11 +29,11 @@ describe "my app", ->
   NEW_ITEM_LABEL = "test newly added item"
 
   switchToToDo = ->
-    $(".nav a[href=\"#/todo\"]").click()
+    todoPage.navTodoButton.click()
     expect(browser.getCurrentUrl()).to.eventually.equal "#{browser.baseUrl}/#/todo"
 
   switchToView1 = ->
-    element(By.css(".nav a[href=\"#/view1\"]")).click()
+    todoPage.navView1Button.click()
     expect(browser.getCurrentUrl()).to.eventually.equal "#{browser.baseUrl}/#/view1"
 
   it "should automatically redirect to /todo when location hash/fragment is empty", ->
@@ -33,31 +43,30 @@ describe "my app", ->
 
     addToDoItem = ()->
       todoPage.newTodoText.sendKeys NEW_ITEM_LABEL
-      $("input[type=\"submit\"]").click()
-      expect(todoPage.todoItems.count()).to.eventually.equal 3
-      expect(todoPage.todoItems.last().element(By.binding("todo.text")).getText()).to.eventually.equal NEW_ITEM_LABEL
+      todoPage.addTodoButton.click()
+      expect(todoPage.allTodos.count()).to.eventually.equal 3
+      expect(todoPage.allTodos.last().element(By.binding("todo.text")).getText()).to.eventually.equal NEW_ITEM_LABEL
       expect(todoPage.newTodoText.getText()).to.eventually.equal ""
 
     it "should list 2 items", ->
-      expect(todoPage.todoItems.count()).to.eventually.equal 2
+      expect(todoPage.allTodos.count()).to.eventually.equal 2
 
     it "should display checked items with a line-through", ->
-      expect($("[ng-view] ul li input:checked + span").getCssValue("text-decoration")).to.eventually.eql "line-through"
+      todoPage.doneTodos.each (elem)->
+        expect(elem.$("input + span").getCssValue("text-decoration")).to.eventually.equal "line-through"
 
     it "should sync done status with checkbox state", ()->
-      $$("[ng-view] ul li input:not(:checked)").click()
-      todoPage.todoItems.$$("span").each (elm) ->
-        elm.getAttribute("class").then (text)->
-          expect(text).to.have.string "done"
+      todoPage.notDoneTodos.each (elem)-> elem.click()
+      todoPage.allTodos.$$("span").each (elm) ->
+        expect(elm.getAttribute("class")).to.eventually.have.string "done"
 
-      $$("[ng-view] ul li input:checked").click()
-      todoPage.todoItems.$$("span").each (elm) ->
-        elm.getAttribute("class").then (text)->
-          expect(text).to.not.have.string "done"
+      todoPage.doneTodos.each (elem)-> elem.click()
+      todoPage.allTodos.$$("span").each (elm) ->
+        expect(elm.getAttribute("class")).to.eventually.not.have.string "done"
 
     it "should remove checked items when the archive link is clicked", ->
       todoPage.archiveButton.click()
-      expect(todoPage.todoItems.count()).to.eventually.equal 1
+      expect(todoPage.allTodos.count()).to.eventually.equal 1
 
     it "should add a newly submitted item to the end of the list and empty the text input", addToDoItem
 
@@ -65,7 +74,7 @@ describe "my app", ->
       addToDoItem()
       switchToView1()
       switchToToDo()
-      expect(todoPage.todoItems.count()).to.eventually.equal 2
+      expect(todoPage.allTodos.count()).to.eventually.equal 2
 
     it "should navigate to /view1 when the View 1 link in nav is clicked", ->
       switchToView1()
